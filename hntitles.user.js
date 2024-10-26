@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Hacker News Title Unmoderator
-// @version      0.9.1
+// @version      0.9.2
 // @namespace    http://tampermonkey.net/
 // @version      2024-10-25
 // @description  Reveal original titles of HN stories
@@ -16,23 +16,25 @@
 (async function() {
     'use strict';
     GM.addStyle('.changed a { color: #956; }');
-	const $ = document.querySelector.bind(document);
-	const $$ = document.querySelectorAll.bind(document);
+    const $ = document.querySelector.bind(document);
+    const $$ = document.querySelectorAll.bind(document);
 
-	// get all ids (they are in a tr with id and class "athing")
-	const ids = [...$$(".athing")].map(elt => elt.id);
-	const qstr = ids.join(",");
-	const hnt = "https://hntitles.medusis.com/readtitles.php?i=" + qstr;
+    // get all ids (they are in a tr with id and class "athing")
+    const ids = [...$$(".athing")].map(elt => elt.id);
+    const qstr = ids.join(",");
+    const hnt = "https://hntitles.medusis.com/readtitles.php?i=" + qstr;
 
-	// load list from store and act on it
+    // load list from store and act on it
     const r = await GM.xmlHttpRequest({
         url: hnt,
         responseType: 'json'
-    }).catch(e => console.error(e));
+        }).catch(e => console.error(e));
     if (r.status < 200 || r.status > 400) {
         console.warn("bad response", r.status);
+        // stop here if bad response from server
         return;
-    }
+        }
+
     const titles = r.response;
     for (const id in titles) {
         const originalTitle = titles[id].title
@@ -49,16 +51,16 @@
                 target.title = `was >> ${originalTitle}`;
                 target.classList.add("changed");
                 titleLink.innerText = "*" + currentTitle;
+                }
             }
-        }
         else {
             // should never happen, as the ids are taken from the page itself
             // if it does happen, most likely a problem with finding the 'target' (selector problem)
             console.warn(id, "NOT FOUND");
+            }
         }
-    }
 
-	// calculate the Levenshtein distance between a and b
+    // calculate the Levenshtein distance between a and b
     function levenshtein(str1, str2) {
         let [len1, len2] = [str1.length, str2.length];
 
@@ -66,14 +68,14 @@
         if (len1 < len2) {
             [str1, str2] = [str2, str1];
             [len1, len2] = [len2, len1];
-        }
+            }
 
         const matrix = Array(2).fill().map(() => Array(len2 + 1));
 
         // Initialize first row
         for (let j = 0; j <= len2; j++) {
             matrix[0][j] = j;
-        }
+            }
 
         // Fill matrix
         for (let i = 1; i <= len1; i++) {
@@ -84,11 +86,11 @@
                     matrix[(i-1) % 2][j] + 1, // deletion
                     matrix[i % 2][j-1] + 1, // insertion
                     matrix[(i-1) % 2][j-1] + cost // substitution
-                );
+                    );
+                }
             }
-        }
 
         return matrix[len1 % 2][len2];
-    };
+        };
 
-})();
+    })();
