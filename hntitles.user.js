@@ -2,7 +2,6 @@
 // @name         Hacker News Title Unmoderator
 // @version      0.9.2
 // @namespace    http://tampermonkey.net/
-// @version      2024-10-25
 // @description  Reveal original titles of HN stories
 // @author       EB
 // @match        https://news.ycombinator.com/
