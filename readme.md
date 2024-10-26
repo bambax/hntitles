@@ -23,7 +23,7 @@ removing clickbait; having access to the original title is useful.
 
 ## How it works
 
-A cron job downloads titles from the newest](https://news.ycombinator.com/newest)
+A cron job downloads titles from the [newest](https://news.ycombinator.com/newest)
 page at regular intervals and stores the original titles.
 
 The extension scans titles on HN pages and compares them to the stored version using
@@ -33,6 +33,6 @@ mouseover shows the original title.
 
 ## More information
 
-Here's a [great post](ttps://news.ycombinator.com/item?id=20429573) 
+Here's a [great post](https://news.ycombinator.com/item?id=20429573) 
 by [dang](https://news.ycombinator.com/user?id=dang)
 about moderating HN titles.
