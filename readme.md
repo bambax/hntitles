@@ -8,7 +8,10 @@ it displays the content of the title in a caption as it was before being moderat
 ## How to install
 
 Just click on this link: 
-[hntitles](https://raw.githubusercontent.com/bambax/hntitles/refs/heads/master/hntitles.user.js)
+[hntitles](https://raw.githubusercontent.com/bambax/hntitles/refs/heads/master/hntitles.user.js).
+
+(One needs to have the [Tampermonkey](https://www.tampermonkey.net/) browser extension already 
+installed for this to work of course.)
 
 ## Who do this
 
@@ -36,3 +39,9 @@ mouseover shows the original title.
 Here's a [great post](https://news.ycombinator.com/item?id=20429573) 
 by [dang](https://news.ycombinator.com/user?id=dang)
 about moderating HN titles.
+
+The original titles have been stored starting 2024-10-25, so for any
+story prior to that date, no original title is available or will be shown.
+
+The script only runs on the HN homepage and the /news page (which is
+the same).
